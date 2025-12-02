@@ -5,9 +5,11 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-        ArrayList<String> allInvalidIds =  new ArrayList<>();
+        ArrayList<String> allInvalidIdsPartOne =  new ArrayList<>();
+        ArrayList<String> allInvalidIdsPartTwo =  new ArrayList<>();
         ArrayList<numberBucket> allNumberBuckets;
-        long finalResult = 0;
+        long finalResultPartOne = 0;
+        long finalResultPartTwo = 0;
         numberReader reader = new numberReader();
         reader.readFile();
         allNumberBuckets = reader.getBuckets();
@@ -17,31 +19,58 @@ public class Main {
             long currentUpperBound = bucket.getUpperBound();
             for (long i = currentLowerBound; i >= currentLowerBound && i <= currentUpperBound; i++ ) {
                 String toBeChecked = Long.toString(i);
-
-                // Only check even numbers
-                if (toBeChecked.length() % 2 == 0) {
-                    // Split by half
-                    int splitIndexNumber = toBeChecked.length() / 2;
-
-                    // Save each half
-                    String firstHalf = toBeChecked.substring(0, splitIndexNumber);
-                    String secondHalf = toBeChecked.substring(splitIndexNumber);
-
-                    // Check if both halfs are the same
-                    if (firstHalf.equals(secondHalf)) {
-                        String invalidId = firstHalf + secondHalf;
-                        allInvalidIds.add(invalidId);
-                        //System.out.println("New invalid id: " + invalidId);
-                    }
+                if (checkPartOne(toBeChecked)) {
+                    allInvalidIdsPartOne.add(toBeChecked);
+                }
+                if (checkPartTwo(toBeChecked)) {
+                    allInvalidIdsPartTwo.add(toBeChecked);
+                    allInvalidIdsPartTwo.add(toBeChecked);
                 }
             };
         }
-        System.out.println("=====================");
-        System.out.printf("We current have %d invalid ids.\n",  allInvalidIds.size());
+        System.out.println("===================== Part 1 =====================");
+        System.out.printf("We current have %d invalid ids.\n",  allInvalidIdsPartOne.size());
 
-        for (String id : allInvalidIds) {
-            finalResult += Long.parseLong(id);
+        for (String id : allInvalidIdsPartOne) {
+            finalResultPartOne += Long.parseLong(id);
         }
-        System.out.printf("Final result: %d\n", finalResult);
+        System.out.printf("Final result: %d\n", finalResultPartOne);
+
+        System.out.println("===================== Part 2 =====================");
+        System.out.printf("We current have %d invalid ids.\n",  allInvalidIdsPartTwo.size());
+        for (String id : allInvalidIdsPartTwo) {
+            finalResultPartTwo += Long.parseLong(id);
+        }
+        System.out.printf("Final result: %d\n", finalResultPartTwo);
+    }
+
+    private static boolean checkPartTwo(String toBeChecked) {
+        int stringLength = toBeChecked.length();
+        int repeatCounter = 0;
+
+        for (int i = 1; i <= stringLength / 2; i++) {
+            String prefix = toBeChecked.substring(0, i);
+
+            if (stringLength % prefix.length() == 0) {
+                int repeatCount = stringLength / prefix.length();
+                String forecastedString = prefix.repeat(repeatCount);
+
+                if (forecastedString.equals(toBeChecked)) {
+                    System.out.printf("%s | contains invalid id - with prefix %s (repeated %d times)\n", toBeChecked, prefix, repeatCount);
+                    repeatCounter = repeatCount;
+                }
+            }
+        }
+        return repeatCounter >= 2;
+    }
+
+    private static boolean checkPartOne(String toBeChecked) {
+        if (toBeChecked.length() % 2 == 0) {
+            int splitIndexNumber = toBeChecked.length() / 2;
+            String firstHalf = toBeChecked.substring(0, splitIndexNumber);
+            String secondHalf = toBeChecked.substring(splitIndexNumber);
+            return firstHalf.equals(secondHalf);
+        }
+        return false;
     }
 }

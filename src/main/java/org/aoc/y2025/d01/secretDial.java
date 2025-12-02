@@ -43,7 +43,7 @@ public class secretDial {
         } else if (positionChangeValue < 0) {
             direction = "left";
         }
-        System.out.printf("We turned %s | by %d | New position ==> %d (from %d to %d )\n", direction, positionChangeValue, newPosition, oldPosition, newPosition);
+        System.out.printf("We turned %s from %d (by %d) to %d | New position ==> %d \n", direction, oldPosition, positionChangeValue, newPosition, newPosition);
     }
 
     public int getZeroCounterPartOne() {

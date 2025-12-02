@@ -15,12 +15,11 @@ public class secretDial {
 
         if (((this.currentPosition + positionChangeValue > 100) || (this.currentPosition + positionChangeValue < 0)) && oldPosition != 0) {
             positionSurpassedZero = true;
-            System.out.printf("%d  %d yields to WE PASSED ZERO", this.currentPosition, positionChangeValue);
         }
 
         if (positionChangeValue > 100) {
             zeroCounterPartTwo += (int) Math.floor((double) positionChangeValue / 100);
-            System.out.println("We crossed 0 with " + newPosition);
+            System.out.println("We crossed 0 with " + newPosition + " for this many times: " + (int) Math.floor((double) positionChangeValue / 100));
         } else if (positionSurpassedZero) {
             zeroCounterPartTwo++;
             System.out.println("We crossed 0 with " + newPosition);
@@ -44,7 +43,7 @@ public class secretDial {
         } else if (positionChangeValue < 0) {
             direction = "left";
         }
-        System.out.printf("We turned | %s | by %d | New position ==> %d (initial change value was %d)\n", direction, positionChangeValue, this.currentPosition, initalChangeValue);
+        System.out.printf("We turned %s | by %d | New position ==> %d (from %d to %d )\n", direction, positionChangeValue, newPosition, oldPosition, newPosition);
     }
 
     public int getZeroCounterPartOne() {

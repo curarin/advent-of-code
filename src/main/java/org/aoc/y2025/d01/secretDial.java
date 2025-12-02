@@ -17,9 +17,14 @@ public class secretDial {
             int zeroCounterDivider = (int) Math.floor((double) positionChangeValue / 100);
             zeroCounterPartTwo += zeroCounterDivider;
             System.out.printf("We crossed 0 by moving from %d -> %d (for %d many times)\n", oldPosition, newPosition, zeroCounterDivider);
+            System.out.println("We added to Zero Counter: " + zeroCounterDivider + " (Total currently: " + zeroCounterPartTwo + ")");
         } else if (positionSurpassedZero) {
+            if (oldPosition > newPosition) {
+                zeroCounterPartTwo++;
+            }
             zeroCounterPartTwo++;
             System.out.printf("We crossed 0 by moving from %d -> %d.\n", oldPosition, newPosition);
+            System.out.println("We added to Zero Counter: " + 1 + " (Total currently: " + zeroCounterPartTwo + ")");
         }
 
         if (newPosition < 0) {

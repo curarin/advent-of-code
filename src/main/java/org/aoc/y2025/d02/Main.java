@@ -44,14 +44,13 @@ public class Main {
     }
 
     private static boolean checkPartTwo(String toBeChecked) {
-        int stringLength = toBeChecked.length();
         int repeatCounter = 0;
 
-        for (int i = 1; i <= stringLength / 2; i++) {
+        for (int i = 1; i <= toBeChecked.length() / 2; i++) {
             String prefix = toBeChecked.substring(0, i);
 
-            if (stringLength % prefix.length() == 0) {
-                int repeatCount = stringLength / prefix.length();
+            if (toBeChecked.length() % prefix.length() == 0) {
+                int repeatCount = toBeChecked.length() / prefix.length();
                 String forecastedString = prefix.repeat(repeatCount);
 
                 if (forecastedString.equals(toBeChecked)) {

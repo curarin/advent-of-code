@@ -15,7 +15,17 @@ public class Main {
         }
 
         System.out.println("\n======================== Result Part 1 ========================");
-        System.out.printf("We managed to get %d Zeroes with the provided rotations.\n", secret.getZeroCounter());
+        System.out.printf("We managed to get %d Zeroes with the provided rotations.\n", secret.getZeroCounterPartOne());
         System.out.println("===============================================================");
+        // Correct value: 1059
+
+
+        System.out.println("\n======================== Result Part 2 ========================");
+        System.out.printf("We managed to get %d Zeroes with the provided rotations.\n", secret.getZeroCounterPartTwo());
+        System.out.println("===============================================================");
+        // 4271 = too low
+        // 4376 = not right
+        // 4695 = too low
+        // 5754 = too low
     }
 }

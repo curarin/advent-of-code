@@ -8,7 +8,6 @@ public class secretDial {
     public void setPosition(int positionChangeValue) {
         System.out.println("------------------------------------------");
         String direction = "";
-        int initalChangeValue = positionChangeValue;
         int oldPosition = this.currentPosition;
         int newPosition = this.currentPosition + positionChangeValue % 100;
         boolean positionSurpassedZero = false;

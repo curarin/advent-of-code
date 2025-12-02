@@ -10,8 +10,8 @@ public class secretDial {
         String direction = "";
         int oldPosition = this.currentPosition;
         int newPosition = this.currentPosition + positionChangeValue % 100;
-        boolean positionSurpassedZero = false;
-        positionSurpassedZero = positionHasSurpassedZero(positionChangeValue, oldPosition, positionSurpassedZero);
+
+        boolean positionSurpassedZero = positionHasSurpassedZero(positionChangeValue, oldPosition);
 
         if (positionChangeValue > 100) {
             zeroCounterPartTwo += (int) Math.floor((double) positionChangeValue / 100);
@@ -46,7 +46,8 @@ public class secretDial {
         System.out.printf("We turned %s from %d (by %d) to %d | New position ==> %d \n", direction, oldPosition, positionChangeValue, newPosition, newPosition);
     }
 
-    private boolean positionHasSurpassedZero(int positionChangeValue, int oldPosition, boolean positionSurpassedZero) {
+    private boolean positionHasSurpassedZero(int positionChangeValue, int oldPosition) {
+        boolean positionSurpassedZero = false;
         if (((this.currentPosition + positionChangeValue > 100) || (this.currentPosition + positionChangeValue < 0)) && oldPosition != 0) {
             positionSurpassedZero = true;
         }

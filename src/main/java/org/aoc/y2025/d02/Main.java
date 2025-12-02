@@ -56,12 +56,14 @@ public class Main {
                 String forecastedString = prefix.repeat(repeatCount);
 
                 if (forecastedString.equals(toBeChecked)) {
-                    System.out.printf("%s | contains invalid id - with prefix %s (repeated %d times)\n", toBeChecked, prefix, repeatCount);
-                    repeatCounter = repeatCount;
+                    //System.out.printf("%s | contains invalid id - with prefix %s (repeated %d times)\n", toBeChecked, prefix, repeatCount);
+                    if (repeatCount >= 2) {
+                        repeatCounter++;
+                    }
                 }
             }
         }
-        return repeatCounter >= 2;
+        return repeatCounter >= 1;
     }
 
     private static boolean checkPartOne(String toBeChecked) {

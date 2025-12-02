@@ -18,13 +18,18 @@ public class secretDial {
         }
 
         int steps = Math.abs(positionChangeValue);
-        int direction = (positionChangeValue > 0) ? 1 : -1;
-        int temp = this.currentPosition;
+        int direction;
+        if (positionChangeValue > 0) {
+            direction = 1;
+        } else {
+            direction = -1;
+        }
+        int temporaryPosition = this.currentPosition;
 
         for (int i = 1; i <= steps; i++) {
-            temp += direction;
-            temp = ((temp % 100) + 100) % 100;
-            if (temp == 0) {
+            temporaryPosition += direction;
+            temporaryPosition = ((temporaryPosition % 100) + 100) % 100;
+            if (temporaryPosition == 0) {
                 System.out.println("We surpassed 0 at step " + i);
                 zeroCounterPartTwo++;
             }

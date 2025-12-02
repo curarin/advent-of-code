@@ -24,7 +24,6 @@ public class Main {
                 }
                 if (checkPartTwo(toBeChecked)) {
                     allInvalidIdsPartTwo.add(toBeChecked);
-                    allInvalidIdsPartTwo.add(toBeChecked);
                 }
             };
         }

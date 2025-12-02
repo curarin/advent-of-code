@@ -19,10 +19,10 @@ public class secretDial {
 
         if (positionChangeValue > 100) {
             zeroCounterPartTwo += (int) Math.floor((double) positionChangeValue / 100);
-            System.out.println("We crossed 0 with " + newPosition + " for this many times: " + (int) Math.floor((double) positionChangeValue / 100));
+            System.out.printf("We crossed 0 by moving from %d -> %d (for %d many times)/n", oldPosition, newPosition, (int) Math.floor((double) positionChangeValue / 100));
         } else if (positionSurpassedZero) {
             zeroCounterPartTwo++;
-            System.out.println("We crossed 0 with " + newPosition);
+            System.out.printf("We crossed 0 by moving from %d -> %d.\n", oldPosition, newPosition);
         }
 
         if (newPosition < 0) {

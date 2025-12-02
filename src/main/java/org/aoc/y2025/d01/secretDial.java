@@ -31,9 +31,6 @@ public class secretDial {
             zeroCounterPartTwo++;
             System.out.printf("We crossed 0 by moving from %d -> %d.\n", oldPosition, newPosition);
         }
-
-
-
         printToStdOut(positionChangeValue, direction, oldPosition, newPosition);
     }
 

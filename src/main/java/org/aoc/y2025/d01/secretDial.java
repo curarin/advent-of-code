@@ -9,22 +9,12 @@ public class secretDial {
         System.out.println("------------------------------------------");
         String direction = "";
         int oldPosition = this.currentPosition;
-        int newPosition = this.currentPosition + positionChangeValue % 100;
+        int newPosition = (this.currentPosition + positionChangeValue) % 100;
 
         boolean positionSurpassedZero = positionHasSurpassedZero(positionChangeValue, oldPosition);
 
-        if (positionChangeValue > 100) {
-            zeroCounterPartTwo += (int) Math.floor((double) positionChangeValue / 100);
-            System.out.printf("We crossed 0 by moving from %d -> %d (for %d many times)/n", oldPosition, newPosition, (int) Math.floor((double) positionChangeValue / 100));
-        } else if (positionSurpassedZero) {
-            zeroCounterPartTwo++;
-            System.out.printf("We crossed 0 by moving from %d -> %d.\n", oldPosition, newPosition);
-        }
-
         if (newPosition < 0) {
             this.currentPosition = newPosition + 100;
-        } else if (newPosition > 99) {
-            this.currentPosition = newPosition - 100;
         } else {
             this.currentPosition = newPosition;
         }
@@ -33,6 +23,16 @@ public class secretDial {
             this.zeroCounterPartOne++;
             this.zeroCounterPartTwo++;
         }
+
+        if (positionChangeValue > 100) {
+            zeroCounterPartTwo += (int) Math.floor((double) positionChangeValue / 100);
+            System.out.printf("We crossed 0 by moving from %d -> %d (for %d many times)\n", oldPosition, newPosition, (int) Math.floor((double) positionChangeValue / 100));
+        } else if (positionSurpassedZero) {
+            zeroCounterPartTwo++;
+            System.out.printf("We crossed 0 by moving from %d -> %d.\n", oldPosition, newPosition);
+        }
+
+
 
         printToStdOut(positionChangeValue, direction, oldPosition, newPosition);
     }

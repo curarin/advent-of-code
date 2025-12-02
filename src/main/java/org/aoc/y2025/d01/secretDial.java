@@ -7,55 +7,42 @@ public class secretDial {
 
     public void setPosition(int positionChangeValue) {
         System.out.println("------------------------------------------");
-        String direction = "";
+
         int oldPosition = this.currentPosition;
-        int newPosition = (this.currentPosition + positionChangeValue) % 100;
+        int newPosition = oldPosition + positionChangeValue;
 
-        boolean positionSurpassedZero = positionHasSurpassedZero(positionChangeValue, oldPosition);
+        newPosition = ((newPosition % 100) + 100) % 100;
 
-        if (positionChangeValue > 100) {
-            int zeroCounterDivider = (int) Math.floor((double) positionChangeValue / 100);
-            zeroCounterPartTwo += zeroCounterDivider;
-            System.out.printf("We crossed 0 by moving from %d -> %d (for %d many times)\n", oldPosition, newPosition, zeroCounterDivider);
-            System.out.println("We added to Zero Counter: " + zeroCounterDivider + " (Total currently: " + zeroCounterPartTwo + ")");
-        } else if (positionSurpassedZero) {
-            if (oldPosition > newPosition) {
+        if (newPosition == 0) {
+            zeroCounterPartOne++;
+        }
+
+        int steps = Math.abs(positionChangeValue);
+        int direction = (positionChangeValue > 0) ? 1 : -1;
+        int temp = this.currentPosition;
+
+        for (int i = 1; i <= steps; i++) {
+            temp += direction;
+            temp = ((temp % 100) + 100) % 100;
+            if (temp == 0) {
+                System.out.println("We surpassed 0 at step " + i);
                 zeroCounterPartTwo++;
             }
-            zeroCounterPartTwo++;
-            System.out.printf("We crossed 0 by moving from %d -> %d.\n", oldPosition, newPosition);
-            System.out.println("We added to Zero Counter: " + 1 + " (Total currently: " + zeroCounterPartTwo + ")");
         }
+        this.currentPosition = newPosition;
 
-        if (newPosition < 0) {
-            this.currentPosition = newPosition + 100;
-        } else {
-            this.currentPosition = newPosition;
-        }
-
-        if (this.currentPosition == 0) {
-            this.zeroCounterPartOne++;
-            this.zeroCounterPartTwo++;
-        }
-
-        printToStdOut(positionChangeValue, direction, oldPosition, this.currentPosition);
+        printToStdOut(positionChangeValue, oldPosition, this.currentPosition);
     }
 
-    private static void printToStdOut(int positionChangeValue, String direction, int oldPosition, int newPosition) {
+    private static void printToStdOut(int positionChangeValue, int oldPosition, int newPosition) {
+        String direction = "";
         if (positionChangeValue >= 1) {
             direction = "right";
         } else if (positionChangeValue < 0) {
             direction = "left";
         }
-        System.out.printf("We turned %s from %d (by %d) to %d | New position ==> %d \n", direction, oldPosition, positionChangeValue, newPosition, newPosition);
-    }
-
-    private boolean positionHasSurpassedZero(int positionChangeValue, int oldPosition) {
-        boolean positionSurpassedZero = false;
-        if (((this.currentPosition + positionChangeValue > 100) || (this.currentPosition + positionChangeValue < 0)) && oldPosition != 0) {
-            positionSurpassedZero = true;
-        }
-        return positionSurpassedZero;
+        System.out.printf("We turned %s from %d (by %d) to %d | New position ==> %d \n",
+                direction, oldPosition, positionChangeValue, newPosition, newPosition);
     }
 
     public int getZeroCounterPartOne() {

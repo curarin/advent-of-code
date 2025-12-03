@@ -7,6 +7,7 @@ public class BatteryBank {
     int firstVoltage = 0;
     int lastVoltage = 0;
     int lastIndex = 0;
+    ArrayList<Integer> voltagesForPartTwo = new ArrayList<>();
 
     public ArrayList<Battery> getBatteries() {
         return this.batteries;
@@ -37,5 +38,14 @@ public class BatteryBank {
         String combination =  firstVoltage + lastVoltage;
         System.out.printf("Largest possible voltage: %s\n", combination);
         return Integer.parseInt(combination);
+    }
+
+    public void setVoltagesForPartTwo(int voltage) {
+        this.voltagesForPartTwo.add(voltage);
+        System.out.printf("Voltage %d added to List > now contains: %s\n", voltage, this.voltagesForPartTwo);
+    }
+
+    public ArrayList<Integer> getVoltagesForPartTwo() {
+        return this.voltagesForPartTwo;
     }
 }

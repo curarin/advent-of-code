@@ -1,6 +1,9 @@
 package org.aoc.y2025.d03;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Main {
 
@@ -38,9 +41,26 @@ public class Main {
             }
             batteryBank.setLastVoltage(secondNum);
             totalOutputVoltage += batteryBank.getLargestVoltageCombination();
+
+            // Part 2 Logic
+            int currentMaxIndex = batteryBank.getLastIndex();
+            int currentNumIndex = 0;
+            int currentMaxNum = 0;
+            for (Battery battery : batteryBank.getBatteries()) {
+                if ((battery.getIndex() > currentNumIndex) && (battery.getVoltage() > currentMaxNum) && (battery.getIndex() != currentMaxIndex)) {
+                    System.out.printf("Current Max Index: %d | Voltage %d | New highest set.\n", currentMaxIndex, battery.getVoltage());
+                }
+                currentMaxIndex -= 1;
+                batteryBank.setVoltagesForPartTwo(currentMaxNum);
+            }
+            System.out.println(batteryBank.getVoltagesForPartTwo());
+
+
         }
 
         System.out.println("========== SOLUTION PART 1 ==========");
         System.out.println("Largest possible voltage: " + totalOutputVoltage);
+
+
     }
 }

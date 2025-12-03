@@ -43,19 +43,22 @@ public class Main {
             totalOutputVoltage += batteryBank.getLargestVoltageCombination();
 
             // Part 2 Logic
-            int currentMaxIndex = batteryBank.getLastIndex();
-            int currentNumIndex = 0;
+            // Offen -> wenn eines gefunden wurde müssen wir weiter shiften
+            // Index Start auf den MaxIndex des alten erhöhen
+            // Index End auf max - 12 (+1)
+            int indexEnd = batteryBank.getLastIndex() - 12;
+            int indexStart = 0;
             int currentMaxNum = 0;
-            for (Battery battery : batteryBank.getBatteries()) {
-                if ((battery.getIndex() > currentNumIndex) && (battery.getVoltage() > currentMaxNum) && (battery.getIndex() != currentMaxIndex)) {
-                    System.out.printf("Current Max Index: %d | Voltage %d | New highest set.\n", currentMaxIndex, battery.getVoltage());
+            int currentMaxIndex = 0;
+
+            for (int i = indexStart; i <= indexEnd; i++) {
+                Battery currentBattery = batteryBank.getBattery(i);
+                if (currentBattery.getVoltage() > currentMaxNum) {
+                    currentMaxNum = currentBattery.getVoltage();
+                    currentMaxIndex = i;
                 }
-                currentMaxIndex -= 1;
-                batteryBank.setVoltagesForPartTwo(currentMaxNum);
+                System.out.printf("[Part 2 Logic] Index %d | Voltage %d -> new max set: %d (from index: %d)\n", currentBattery.getIndex(), currentBattery.getVoltage(), currentMaxNum, currentMaxIndex);
             }
-            System.out.println(batteryBank.getVoltagesForPartTwo());
-
-
         }
 
         System.out.println("========== SOLUTION PART 1 ==========");

@@ -40,6 +40,10 @@ public class BatteryBank {
         return Integer.parseInt(combination);
     }
 
+    public Battery getBattery(int index) {
+        return this.batteries.get(index);
+    }
+
     public void setVoltagesForPartTwo(int voltage) {
         this.voltagesForPartTwo.add(voltage);
         System.out.printf("Voltage %d added to List > now contains: %s\n", voltage, this.voltagesForPartTwo);

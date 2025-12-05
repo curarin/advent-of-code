@@ -18,11 +18,14 @@ public class Main {
             int[] rowIndices = {item.getRowIndex() - 1, item.getRowIndex(), item.getRowIndex() + 1};
 
             for (int columnIndex : columnIndices) {
+                // Um Index Out of Bound Errors zu vermeiden filtern wir hier for
+                // Könnte man auch bei der Int Array erstellung oben schon machen. Vermutlich eleganter
                 if (columnIndex >= 0 && columnIndex < forkliftGrid.getMaximumColumnIndex()) {
                     for (int rowIndex : rowIndices) {
                         System.out.printf("[Row: %d | Col: %d] Checking Row %d / Col %d\n", item.getRowIndex(), item.getColumnIndex(), rowIndex, columnIndex);
                         if (rowIndex >= 0 && rowIndex < forkliftGrid.getMaximumRowIndex()) {
                             if (forkliftGrid.getGridItem(rowIndex, columnIndex).getGridItemType() == ItemType.PAPER) {
+                                // Das GridItem darf sich nicht selbst überprüfen und zählen > daher filter
                                 if (item.getId() != forkliftGrid.getGridItem(rowIndex, columnIndex).getId()) {
                                     paperRollcounter++;
                                     System.out.printf("[Row: %d | Col: %d] -> Nearby Paper found (at %d / %d) -> total: %d.\n", item.getRowIndex(), item.getColumnIndex(), rowIndex, columnIndex, paperRollcounter);

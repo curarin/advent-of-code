@@ -1,6 +1,7 @@
 package org.aoc.y2025.d05;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Main {
     public static void main(String[] args) {
@@ -29,9 +30,26 @@ public class Main {
             System.out.printf("[ID %d] Freshness-State: %s\n", ingredient.getId(), ingredient.getFreshnessState());
         }
 
-        System.out.println("========== SOLUTION PART 1 ==============");
+        // Part 2 Counter
+        // OutOfMemory Exception, rip
+        HashSet<Long> allUniqueIds = new HashSet<Long>();
+        for (IngredientBucket bucket : allIngredientBuckets) {
+            long startId = bucket.getLowerBound();
+            long endId = bucket.getUpperBound();
+            for (long i = startId; i <= endId; i++) {
+                allUniqueIds.add(i);
+                System.out.printf(".");
+            }
+        }
+
+        System.out.println("\n========== SOLUTION PART 1 ==============");
         System.out.println("Freshness-State \tStatus");
         System.out.printf("[ Fresh ] \t\t\t%d\n", freshnessCounter);
         System.out.printf("[ Spoiled ] \t\t%d", spoiledCounter);
+
+        System.out.println("\n========== SOLUTION PART 2 ==============");
+        System.out.printf("Unique IDs considered fresh: %d\n", allUniqueIds.size());
+
+
     }
 }

@@ -53,7 +53,10 @@ public class Main {
             if (bucket.getLowerBound() < prevUpperBound) {
                 lowerBounds.add(bucket.getLowerBound());
                 upperBounds.add(bucket.getUpperBound());
-                prevUpperBound = bucket.getUpperBound();
+                if (bucket.getUpperBound() > prevUpperBound) {
+                    prevUpperBound = bucket.getUpperBound();
+                    System.out.printf("UPPER BOUND SET");
+                }
                 System.out.printf("[Lower Bounds] %s | [Upper Bounds] %s\n", lowerBounds, upperBounds);
             } else if (bucket.getLowerBound() > prevUpperBound) {
                 // Hier müsste ich ein neues Objekt erstellen
@@ -67,6 +70,9 @@ public class Main {
                 upperBounds.add(bucket.getUpperBound());
                 System.out.printf("[Lower Bounds] %s | [Upper Bounds] %s\n", lowerBounds, upperBounds);
                 prevUpperBound  = bucket.getUpperBound();
+            } else if (bucket.getLowerBound() == prevUpperBound) {
+                prevUpperBound = bucket.getUpperBound();
+                upperBounds.add(bucket.getUpperBound());
             }
         }
         IngredientBucket newBucket = new IngredientBucket(Collections.min(lowerBounds), Collections.max(upperBounds));
@@ -91,9 +97,6 @@ public class Main {
 
         System.out.println("\n========== SOLUTION PART 2 ==============");
         System.out.printf("Unique IDs considered fresh: %d\n", totalUniqueIds);
-        // Too low: 316839876331379
-        // Too high: 344423158480190
-
-
+        // CORRECT -> 344423158480189
     }
 }

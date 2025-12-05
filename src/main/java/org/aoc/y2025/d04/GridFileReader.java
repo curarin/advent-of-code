@@ -30,17 +30,29 @@ public class GridFileReader {
 
     public ForkliftGrid getForkliftGrid() {
         ForkliftGrid forkliftGrid = new ForkliftGrid();
+        int sequentialIdNumber = 1;
+        int rowCounter = 0;
+
         for (String line : this.inputData) {
-            for (int i = 0; i < line.length(); i++) {
-                if (line.charAt(i) == '.') {
-                    GridItem gridItem = new GridItem(ItemType.GROUND);
+            for (int columnCounter = 0; columnCounter < line.length(); columnCounter++) {
+                if (line.charAt(columnCounter) == '.') {
+                    GridItem gridItem = new GridItem(ItemType.GROUND, columnCounter, rowCounter, sequentialIdNumber);
                     forkliftGrid.addGridItem(gridItem);
-                } else if (line.charAt(i) == '@') {
-                    GridItem gridItem = new GridItem(ItemType.PAPER);
+                    System.out.printf("ID: %d | [Row: %d | Col: %d] GridItem created with type -> %s.\n", sequentialIdNumber, rowCounter, columnCounter, gridItem.getGridItemType());
+                    sequentialIdNumber++;
+
+                } else if (line.charAt(columnCounter) == '@') {
+                    GridItem gridItem = new GridItem(ItemType.PAPER, columnCounter, rowCounter, sequentialIdNumber);
                     forkliftGrid.addGridItem(gridItem);
+                    System.out.printf("ID: %d | [Row: %d | Col: %d] GridItem created with type -> %s.\n", sequentialIdNumber, rowCounter, columnCounter, gridItem.getGridItemType());
+                    sequentialIdNumber++;
                 }
             }
+            rowCounter++;
+
         }
+        forkliftGrid.setMaximumColumnIndex(this.inputData.size());
+        forkliftGrid.setMaximumRowIndex(rowCounter);
         return forkliftGrid;
     }
 }

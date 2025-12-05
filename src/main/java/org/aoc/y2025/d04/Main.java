@@ -7,42 +7,45 @@ public class Main {
         GridFileReader fileReader = new GridFileReader();
         fileReader.readFile();
         ForkliftGrid forkliftGrid = fileReader.getForkliftGrid();
+        int totalAccesseblePaperRolls = 0;
 
-        ForkliftGrid markedForkliftGrid = new ForkliftGrid();
-
-        int iteratorCounter = 0;
         for (GridItem item : forkliftGrid.getGridItems()) {
-            // Anzahl an PAPER ENUMs vorher zählen
-            // Anzahl an Paper ENUMs nacher zählen
-            int paperBefore = 0;
-            int paperAfter = 0;
+            //System.out.printf("Coordiates: %d / %d\n", item.getColumnIndex(), item.getRowIndex());
+            int paperRollcounter = 0;
 
-            for (int i = iteratorCounter - 5; i < iteratorCounter; i++) {
-                if (i >= 0) {
-                    if (forkliftGrid.getGridItem(i).getGridItemType() == ItemType.PAPER) {
-                        paperBefore++;
+            // 2 ^ 3 permutationen von ColumnIndex & RowIndex berechnen
+            int[] columnIndices = {item.getColumnIndex() - 1, item.getColumnIndex(), item.getColumnIndex() + 1};
+            int[] rowIndices = {item.getRowIndex() - 1, item.getRowIndex(), item.getRowIndex() + 1};
+
+            for (int columnIndex : columnIndices) {
+                if (columnIndex >= 0 && columnIndex < forkliftGrid.getMaximumColumnIndex()) {
+                    for (int rowIndex : rowIndices) {
+                        System.out.printf("[Row: %d | Col: %d] Checking Row %d / Col %d\n", item.getRowIndex(), item.getColumnIndex(), rowIndex, columnIndex);
+                        if (rowIndex >= 0 && rowIndex < forkliftGrid.getMaximumRowIndex()) {
+                            if (forkliftGrid.getGridItem(rowIndex, columnIndex).getGridItemType() == ItemType.PAPER) {
+                                if (item.getId() != forkliftGrid.getGridItem(rowIndex, columnIndex).getId()) {
+                                    paperRollcounter++;
+                                    System.out.printf("[Row: %d | Col: %d] -> Nearby Paper found (at %d / %d) -> total: %d.\n", item.getRowIndex(), item.getColumnIndex(), rowIndex, columnIndex, paperRollcounter);
+                                }
+                            }
+                        }
                     }
                 }
             }
-
-            for (int i = iteratorCounter + 1; i < iteratorCounter + 5 && i < forkliftGrid.getGridItems().size(); i++) {
-                if (i <= forkliftGrid.getGridItems().size()) {
-                    if (forkliftGrid.getGridItem(i).getGridItemType() == ItemType.PAPER) {
-                        paperAfter++;
-                    }
-                }
+            if (paperRollcounter < 4 && item.getGridItemType() == ItemType.PAPER) {
+                System.out.printf("[Row: %d | Col: %d] Paperroll has %d within 8 adjacent Rolls & can be easily accessed.\n", item.getRowIndex(), item.getRowIndex(), paperRollcounter);
+                item.markAsAccesable();
             }
-
-            if ((paperBefore < 4 || paperAfter < 4) && item.getGridItemType() == ItemType.PAPER) {
-                System.out.printf("Index %d -> Marked as CAN BE ACCESSED\n", iteratorCounter);
-            }
-
-
-            System.out.printf("Index %d -> %s\n", iteratorCounter, item.getGridItemType());
-            System.out.printf("Paper before: %d | Paper after: %d\n", paperBefore, paperAfter);
-            System.out.println("====================");
-
-            iteratorCounter++;
+            System.out.println("-------------------------------------------------");
         }
+
+        for (GridItem item : forkliftGrid.getGridItems()) {
+            if (item.isMarkAsAccessible()) {
+                totalAccesseblePaperRolls++;
+            }
+        }
+
+        System.out.println("========== PART 1 SOLUTION ==========");
+        System.out.printf("[Total Count] %d",  totalAccesseblePaperRolls);
     }
 }

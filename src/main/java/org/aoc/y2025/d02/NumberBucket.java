@@ -1,10 +1,10 @@
 package org.aoc.y2025.d02;
 
-public class numberBucket {
+public class NumberBucket {
     private final long lowerBound;
     private final long upperBound;
 
-    public numberBucket(long lowerBound, long upperBound) {
+    public NumberBucket(long lowerBound, long upperBound) {
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;
     }

@@ -7,14 +7,14 @@ public class Main {
     public static void main(String[] args) {
         ArrayList<String> allInvalidIdsPartOne =  new ArrayList<>();
         ArrayList<String> allInvalidIdsPartTwo =  new ArrayList<>();
-        ArrayList<numberBucket> allNumberBuckets;
+        ArrayList<NumberBucket> allNumberBuckets;
         long finalResultPartOne = 0;
         long finalResultPartTwo = 0;
-        numberReader reader = new numberReader();
+        NumberReader reader = new NumberReader();
         reader.readFile();
         allNumberBuckets = reader.getBuckets();
 
-        for (numberBucket bucket : allNumberBuckets) {
+        for (NumberBucket bucket : allNumberBuckets) {
             long currentLowerBound = bucket.getLowerBound();
             long currentUpperBound = bucket.getUpperBound();
             for (long i = currentLowerBound; i >= currentLowerBound && i <= currentUpperBound; i++ ) {

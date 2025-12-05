@@ -1,7 +1,5 @@
 package org.aoc.y2025.d03;
 
-import org.aoc.y2025.d02.numberBucket;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;

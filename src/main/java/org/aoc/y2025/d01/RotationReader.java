@@ -1,4 +1,4 @@
-package org.aoc.y2025.d02;
+package org.aoc.y2025.d01;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,12 +7,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class numberReader {
+public class RotationReader {
     ArrayList<String> inputData;
 
     public void readFile() {
         ArrayList<String> list = new ArrayList<>();
-        Path path = Paths.get("src", "main", "java", "org", "aoc", "y2025", "d02", "numbers.csv");
+        Path path = Paths.get("src", "main", "java", "org", "aoc", "y2025", "d01", "rotations.csv");
 
         try (BufferedReader br = Files.newBufferedReader(path)) {
             String line;
@@ -28,14 +28,20 @@ public class numberReader {
         this.inputData =  list;
     }
 
-    public ArrayList<numberBucket> getBuckets() {
-        ArrayList<numberBucket> buckets = new ArrayList<>();
+    public ArrayList<Integer> getRotationNumbers() {
+        ArrayList<Integer> rotations = new ArrayList<>();
 
         for (String line : this.inputData) {
-            String[] values = line.split("-");
-            numberBucket currentBucket = new numberBucket(Long.parseLong(values[0]), Long.parseLong(values[1]));
-            buckets.add(currentBucket);
+            if (line.startsWith("L")) {
+                String parsedStrong = line.replace("L", "-");
+                int num = Integer.parseInt(parsedStrong);
+                rotations.add(num);
+            } else if (line.startsWith("R")) {
+                String parsedStrong = line.replace("R", "");
+                int num = Integer.parseInt(parsedStrong);
+                rotations.add(num);
+            }
         }
-        return buckets;
+        return rotations;
     }
 }

@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-        rotationReader data = new rotationReader();
+        RotationReader data = new RotationReader();
         data.readFile();
         ArrayList<Integer> listOfData = data.getRotationNumbers();
-        secretDial secret = new secretDial();
+        SecretDial secret = new SecretDial();
 
         for (int rotation : listOfData) {
             secret.setPosition(rotation);

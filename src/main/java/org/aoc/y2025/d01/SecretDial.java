@@ -1,6 +1,6 @@
 package org.aoc.y2025.d01;
 
-public class secretDial {
+public class SecretDial {
     int currentPosition = 50;
     int zeroCounterPartOne = 0;
     int zeroCounterPartTwo = 0;
